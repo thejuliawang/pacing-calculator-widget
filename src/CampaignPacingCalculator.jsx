@@ -144,3 +144,4 @@ export default function CampaignPacingCalculator({ config }) {
     <div className="foot">Currency: {opts.currency} • Decimals: {opts.decimals}</div>
   </div>
 );
+}
