@@ -1,0 +1,31 @@
+{
+  "name": "pacing-calculator-widget",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": ".",
+  "description": "Campaign Pacing Calculator widget (React -> r2wc) for embedding without shadow DOM, inheriting host styles.",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "postbuild": "node scripts/postbuild.js",
+    "lint": "echo \"(Optional) add eslint config\""
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "react-to-webcomponent": "^1.8.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
