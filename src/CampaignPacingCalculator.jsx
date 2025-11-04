@@ -75,106 +75,72 @@ export default function CampaignPacingCalculator({ config }) {
   };
 
   return (
-    <div className="min-h-[320px] bg-white p-6 md:p-8 border border-gray-200 rounded-2xl max-w-5xl mx-auto font-sans">
-      <div className="text-2xl md:text-3xl font-semibold text-gray-900 text-center mb-1">
-        Campaign Pacing Calculator
-      </div>
-      <div className="text-sm md:text-base text-gray-600 text-center mb-8">
-        Track and optimize your marketing spend in real time
-      </div>
+  <div className="pacing-widget">
+    <h1>Campaign Pacing Calculator</h1>
+    <div className="sub">Track and optimize your marketing spend in real time</div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="flex flex-col gap-5">
-          <label className="flex flex-col">
-            <span className="text-sm font-medium text-gray-900 mb-1">Total Budget</span>
-            <input
-              type="number"
-              value={totalBudget}
-              onChange={(e) => setTotalBudget(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="1000"
-              className="p-3 text-base border border-gray-300 rounded-xl bg-white focus:border-gray-900 focus:outline-none transition-colors"
-            />
-          </label>
-
-          <label className="flex flex-col">
-            <span className="text-sm font-medium text-gray-900 mb-1">Campaign Duration (Days)</span>
-            <input
-              type="number"
-              value={totalDays}
-              onChange={(e) => setTotalDays(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="30"
-              className="p-3 text-base border border-gray-300 rounded-xl bg-white focus:border-gray-900 focus:outline-none transition-colors"
-            />
-          </label>
-
-          <label className="flex flex-col">
-            <span className="text-sm font-medium text-gray-900 mb-1">Days Elapsed</span>
-            <input
-              type="number"
-              value={daysElapsed}
-              onChange={(e) => setDaysElapsed(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="20"
-              className="p-3 text-base border border-gray-300 rounded-xl bg-white focus:border-gray-900 focus:outline-none transition-colors"
-            />
-          </label>
-
-          <label className="flex flex-col">
-            <span className="text-sm font-medium text-gray-900 mb-1">Amount Spent</span>
-            <input
-              type="number"
-              value={amountSpent}
-              onChange={(e) => setAmountSpent(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="400"
-              className="p-3 text-base border border-gray-300 rounded-xl bg-white focus:border-gray-900 focus:outline-none transition-colors"
-            />
-          </label>
-
-          <button
-            onClick={calculatePacing}
-            className="p-3 text-base font-medium text-white bg-gray-900 rounded-xl hover:bg-black active:scale-[0.99] transition-all"
-          >
-            Calculate Pacing
-          </button>
+    <div className="grid">
+      {/* Inputs */}
+      <div>
+        <div>
+          <label>Total Budget</label>
+          <input type="number" value={totalBudget} onChange={(e)=>setTotalBudget(e.target.value)} onKeyPress={handleKeyPress} placeholder="1000" />
         </div>
 
-        <div className="bg-gray-50 rounded-xl p-6 text-gray-900 flex flex-col gap-5 border border-gray-200">
-          {!results ? (
-            <div className="text-gray-500 text-sm text-center py-8">
-              Enter your campaign details and click \"Calculate Pacing\" to see results
+        <div style={{marginTop:12}}>
+          <label>Campaign Duration (Days)</label>
+          <input type="number" value={totalDays} onChange={(e)=>setTotalDays(e.target.value)} onKeyPress={handleKeyPress} placeholder="30" />
+        </div>
+
+        <div style={{marginTop:12}}>
+          <label>Days Elapsed</label>
+          <input type="number" value={daysElapsed} onChange={(e)=>setDaysElapsed(e.target.value)} onKeyPress={handleKeyPress} placeholder="20" />
+        </div>
+
+        <div style={{marginTop:12}}>
+          <label>Amount Spent</label>
+          <input type="number" value={amountSpent} onChange={(e)=>setAmountSpent(e.target.value)} onKeyPress={handleKeyPress} placeholder="400" />
+        </div>
+
+        <button className="btn" onClick={calculatePacing} style={{marginTop:12}}>
+          Calculate Pacing
+        </button>
+      </div>
+
+      {/* Results */}
+      <div className="panel">
+        {!results ? (
+          <div style={{color:'#6b7280', textAlign:'center', padding:'24px 0'}}>
+            Enter your campaign details and click "Calculate Pacing" to see results
+          </div>
+        ) : (
+          <>
+            <div>
+              <div className="metric-label">Pacing Status</div>
+              <div className="metric">{results.pacingStatus}</div>
             </div>
-          ) : (
-            <>
-              <div>
-                <div className="text-xs uppercase tracking-wide text-gray-500 mb-1 font-medium">Pacing Status</div>
-                <div className="text-3xl md:text-4xl font-semibold">{results.pacingStatus}</div>
-              </div>
 
-              <div>
-                <div className="text-xs uppercase tracking-wide text-gray-500 mb-1 font-medium">Target Spend</div>
-                <div className="text-2xl md:text-3xl font-semibold">{formatCurrency(results.targetSpend)}</div>
-              </div>
+            <div style={{marginTop:12}}>
+              <div className="metric-label">Target Spend</div>
+              <div className="metric">{formatCurrency(results.targetSpend)}</div>
+            </div>
 
-              <div>
-                <div className="text-xs uppercase tracking-wide text-gray-500 mb-1 font-medium">Spend Variance</div>
-                <div className="text-2xl md:text-3xl font-semibold">{results.spendVariance >= 0 ? '+' : ''}{formatCurrency(results.spendVariance)}</div>
-              </div>
+            <div style={{marginTop:12}}>
+              <div className="metric-label">Spend Variance</div>
+              <div className="metric">{results.spendVariance >= 0 ? '+' : ''}{formatCurrency(results.spendVariance)}</div>
+            </div>
 
-              <div>
-                <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden mt-1" aria-hidden>
-                  <div className="h-full rounded-full transition-all duration-500 bg-gray-700" style={{ width: `${Math.min(results.percentOfBudgetSpent, 100)}%` }} />
-                </div>
-                <div className="text-lg md:text-xl font-medium mt-2">{results.percentOfBudgetSpent.toFixed(0)}% of Budget Spent</div>
+            <div style={{marginTop:12}}>
+              <div className="bar"><span style={{width: `${Math.min(results.percentOfBudgetSpent, 100)}%`}} /></div>
+              <div style={{fontWeight:600, marginTop:8}}>
+                {results.percentOfBudgetSpent.toFixed(0)}% of Budget Spent
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
       </div>
-
-      <div className="text-[11px] text-gray-400 mt-4">Currency: {opts.currency} • Decimals: {opts.decimals}</div>
     </div>
-  );
-}
+
+    <div className="foot">Currency: {opts.currency} • Decimals: {opts.decimals}</div>
+  </div>
+);
