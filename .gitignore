@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+.pnpm-store/
+.npm/
+
+# production build
+build/
+dist/
+out/
+
+# env & local configs
+.env*
+!.env.example
+
+# system/editor cruft
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+*.local
+
+# test & coverage
+coverage/
+*.coverage
+
+# cache
+.cache/
+.eslintcache
+
